@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Wrapper from "./Wrapper";
+import { Link } from "react-router-dom";
 
 const HeaderStyled = styled.div`
   background-color: var(--white);
@@ -15,7 +16,12 @@ const HeaderStyled = styled.div`
   h1 {
     font-size: 14px;
   }
+  a {
+    text-decoration: none;
+    color: var(--dark);
+  }
   .dark-mode {
+    cursor: pointer;
     p {
       font-size: 12px;
       font-weight: 600;
@@ -27,21 +33,48 @@ const HeaderStyled = styled.div`
       }
     }
   }
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 3em;
+    h1 {
+      font-size: 24px;
+    }
+    .dark-mode {
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
 `;
 
-function Header() {
-  const handleClick = () => {};
+function Header({ setDarkMode, darkMode }) {
+  const handleClick = () => {
+    setDarkMode(!darkMode);
+  };
   return (
     <HeaderStyled>
       <Wrapper>
         <div className="content">
-          <h1>Where in the world?</h1>
+          <Link to="/">
+            <h1>Where in the world?</h1>
+          </Link>
           <div className="dark-mode">
             <p onClick={handleClick}>
-              <span className="moon">
-                <i className="fa-regular fa-moon"></i>
-              </span>
-              Dark Mode
+              {!darkMode ? (
+                <>
+                  <span className="moon">
+                    <i className="fa-regular fa-moon"></i>
+                  </span>
+                  Dark Mode
+                </>
+              ) : (
+                <>
+                  <span className="moon">
+                    <i className="fa-solid fa-moon"></i>
+                  </span>
+                  Light Mode
+                </>
+              )}
             </p>
           </div>
         </div>
